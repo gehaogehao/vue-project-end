@@ -20,6 +20,7 @@ VueRouter.prototype.replace = function replace(location, onResolve, onReject) {
 
 const router = new VueRouter({
     routes,
+    mode:"history",
     linkActiveClass:"active"
 })
 router.beforeEach(async (to,from,next)=>{
