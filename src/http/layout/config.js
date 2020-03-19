@@ -9,5 +9,6 @@ export default {
             url:"/api/goods",
             method:"get"
         }
-    }
+    },
+    clearToast: true
 }

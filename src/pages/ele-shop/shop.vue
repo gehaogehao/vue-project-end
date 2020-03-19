@@ -3,13 +3,13 @@
     <ele-header :sellersData="sellersData"></ele-header>
     <div class="navs">
       <div class="item">
-        <router-link to="/shop/goods">商品</router-link>
+        <router-link :to="`/shop/${id}/goods`">商品</router-link>
       </div>
       <div class="item">
-        <router-link to="/shop/ratings">评价</router-link>
+        <router-link :to="`/shop/${id}/ratings`">评价</router-link>
       </div>
       <div class="item">
-        <router-link to="/shop/sellers">商家</router-link>
+        <router-link :to="`/shop/${id}/sellers`">商家</router-link>
       </div>
     </div>
     <keep-alive>
@@ -25,6 +25,9 @@ import {GETSELLERS} from '@/store/mutation-type.js'
 const OK = 0;
 export default {
   name: "App",
+  props:{
+    id:String
+  },
   computed: {
     ...mapState(["sellersData"])
   },
@@ -35,9 +38,14 @@ export default {
     "ele-header": Header
   },
   mounted() {
-    this[GETSELLERS]()
+    this[GETSELLERS](this.id)
   },
-};
+  //组件复用时候 通过id获取最新商家信息
+  beforeRouteUpdate (to, from, next) {
+      this[GETSELLER](to.params.id);
+      next()
+  }
+}
 </script>
 
 <style scoped lang='stylus'>

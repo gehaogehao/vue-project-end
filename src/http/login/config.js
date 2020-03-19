@@ -26,9 +26,5 @@ export default {
             }
         },
     },
-    hooks:{
-        beforeReq(){
-        },
-        afterReq(){}
-    }
+    clearToast:true
 }

@@ -38,7 +38,8 @@
           </div>
           <div class="shop_container" ref="shop_container">
               <ul class="shop_list">
-                  <li class="shop_li border-1px" v-for="(shop, index) in shopsArr" :key="index" @click="$router.replace('/shop')">
+                  <li class="shop_li border-1px" v-for="(shop, index) in shopsArr" :key="index" 
+                      @click="$router.replace(`/shop/${shop.id}`)">
                       <a>
                           <div class="shop_left">
                               <img class="shop_img" :src="baseUrl + shop.image_path">

@@ -2,6 +2,7 @@ import {GETADDRESSOBJ,GETCATEGORYARR,GETSHOPSARR,GETUSER,CLEARUSER,AUTOLOGIN,GET
 import http from '@/http'
 import {Toast} from 'vant'
 import router from '@/router'
+import Swal from 'sweetalert2'
 const OK = 0
 const ERROR = 1
 function loginSuccess(commit,data,changeUrl,show){
@@ -57,15 +58,20 @@ export default {
             if(result.code === OK){
                 commit(AUTOLOGIN,result.data)
             }else if(result.code === ERROR){
-                alert(result.msg)
-                router.replace('/login')
+                Swal.fire(result.msg)
+                commit(CLEARUSER)
+                localStorage.removeItem('ele-token')
+                // router.replace('/login')
             }
         } catch (error) {
-            alert(error.response.data.message)
-            router.replace("/Login");
+            Swal.fire(error.response.data.message)
+            commit(CLEARUSER)
+            localStorage.removeItem('ele-token')
+            // router.replace("/Login");
         }
     },
-    async [GETSELLERS]({commit}){
+    async [GETSELLERS]({commit},id){
+        // console.log(id);
         let {errorno,data} = await http.layout.getSellers()
         if(errorno === OK)
             commit(GETSELLERS,data)

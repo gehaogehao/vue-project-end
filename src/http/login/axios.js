@@ -8,18 +8,18 @@ const contact = axios.create({
 })
 
 contact.interceptors.request.use(function (axiosConfig) {
-    loading()
+    config.clearToast && config.clearToast ? "" : loading()
     config.hooks && config.hooks.beforeReq && config.hooks.beforeReq()
     return axiosConfig;
   });
 
 
 contact.interceptors.response.use(function (response) {
-    success()
+    config.clearToast && config.clearToast ? "" : success()
     config.hooks && config.hooks.afterReq && config.hooks.afterReq()
     return response.data;
   }, function (error) {
-    fail()
+    config.clearToast && config.clearToast ? "" : fail()
     config.hooks && config.hooks.afterReq && config.hooks.afterReq()
     return Promise.reject(error);
   });

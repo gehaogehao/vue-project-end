@@ -1,6 +1,7 @@
 <template>
   <div>
-      <van-button type="primary" @click="clearUser">退出登录</van-button>
+    <i class="shop-close close" @click="$router.replace('/profile')"></i>
+    <van-button type="primary" @click="clearUser" class="btn">退出登录</van-button>
   </div>
 </template>
 
@@ -26,6 +27,12 @@ import router from '@/router'
 </script>
 
 <style scoped lang='stylus'>
-
- 
+.close
+  position fixed
+  left 2px
+  top 2px
+  color red
+  font-size 25px
+.btn 
+  margin-left 100px
 </style>

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from '@/routes'
+import store from '@/store'
+import {AUTOLOGIN} from '@/store/mutation-type.js'
 Vue.use(VueRouter)
 
 const originalPush = VueRouter.prototype.push
@@ -16,7 +18,25 @@ VueRouter.prototype.replace = function replace(location, onResolve, onReject) {
 }  
 
 
-export default new VueRouter({
+const router = new VueRouter({
     routes,
     linkActiveClass:"active"
 })
+router.beforeEach(async (to,from,next)=>{
+    if(to.path !== '/login'){
+        await store.dispatch(AUTOLOGIN)
+        if(store.state.user._id){
+            next()
+        }else{
+            next('/login')
+        }
+    }else{
+        next()
+    }
+})
+router.beforeResolve((to,from,next)=>{
+    next()
+})
+router.afterEach((to,from)=>{})
+
+export default router
